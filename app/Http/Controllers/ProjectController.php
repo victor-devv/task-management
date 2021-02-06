@@ -50,4 +50,10 @@ class ProjectController extends Controller
 
         return response()->json('Project updated!');
     }
+
+    public function delete($id)
+    {
+        Project::destroy($id);
+        return response()->json('Project deleted!');
+    }
 }

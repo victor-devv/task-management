@@ -1,10 +1,12 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import Header from "./Header";
-import NewProject from "./NewProject";
-import ProjectsList from "./ProjectsList";
-import Project from './Project';
+import ReactDOMServer from "react-dom/server";
+
+import Header from "./components/Header";
+import NewProject from "./components/NewProject";
+import ProjectsList from "./components/ProjectsList";
+import Project from "./components/Project";
 
 class App extends Component {
     render() {
@@ -15,7 +17,7 @@ class App extends Component {
                     <Switch>
                         <Route exact path="/" component={ProjectsList} />
                         <Route path="/create" component={NewProject} />
-                        <Route path='/:id' component={Project} />
+                        <Route path="/:id" component={Project} />
                     </Switch>
                 </div>
             </BrowserRouter>
@@ -23,4 +25,8 @@ class App extends Component {
     }
 }
 
-ReactDOM.render(<App />, document.getElementById("app"));
+let {} = context;
+
+const html = ReactDOMServer.renderToString(<App />);
+
+dispatch(html);

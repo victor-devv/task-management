@@ -26,4 +26,10 @@ class TaskController extends Controller
 
       return response()->json('Task updated!');
     }
+
+  public function delete($id)
+  {
+    Task::destroy($id);
+    return response()->json('Task deleted!');
+  }
 }

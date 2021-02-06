@@ -18,6 +18,16 @@ class ProjectsList extends Component {
         });
     }
 
+    handleDeleteProject (projectId) {
+        axios.delete(`/api/projects/${projectId}`).then(response => {
+          this.setState(prevState => ({
+            tasks: prevState.projects.filter(project => {
+              return project.id !== projectsId
+            })
+          }))
+        })
+    }
+
     render() {
         const { projects } = this.state;
         return (
@@ -41,9 +51,13 @@ class ProjectsList extends Component {
                                             key={project.id}
                                         >
                                             {project.name}
-                                            <span className="badge badge-primary badge-pill">
+                                            <span className="badge badge-primary badge-pill mx-auto">
                                                 {project.tasks_count}
                                             </span>
+                                            <button className='btn btn-danger btn-sm float-right' onClick={this.handleDeleteProject.bind(this,project.id)}
+                                            >
+                                            Delete
+                                            </button>
                                         </Link>
                                     ))}
                                 </ul>

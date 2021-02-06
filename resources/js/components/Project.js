@@ -86,7 +86,18 @@ class Project extends Component {
             })
           }))
         })
-      }
+    }
+
+    handleDeleteTask (taskId) {
+        axios.delete(`/api/tasks/${taskId}`).then(response => {
+          this.setState(prevState => ({
+            tasks: prevState.tasks.filter(task => {
+              return task.id !== taskId
+            })
+          }))
+        })
+    }
+
     componentDidMount() {
         const projectId = this.props.match.params.id;
 
@@ -138,6 +149,10 @@ class Project extends Component {
                                             <button className='btn btn-primary btn-sm float-right ml-5' onClick={this.handleMarkTaskAsCompleted.bind(this,task.id)}
                                             >
                                             Mark as completed
+                                            </button>
+                                            <button className='btn btn-danger btn-sm float-right ml-5' onClick={this.handleDeleteTask.bind(this,task.id)}
+                                            >
+                                            Delete
                                             </button>
                                             <hr />
                                         </li>
